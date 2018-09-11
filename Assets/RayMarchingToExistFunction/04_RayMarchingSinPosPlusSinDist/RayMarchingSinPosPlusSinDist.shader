@@ -54,7 +54,7 @@
 			float _FreqScale;
 			float _DistScale;
 
-			// その場所にオブジェクトが存在するか？（=オブジェクト内か？）を返す存在関数
+			// 座標がオブジェクト内か？を返し，形状を定義する形状関数
 			// 形状は名状しがたい
 			bool isInObject(float3 pos) {
 				pos.x += _Time * _TimeRate;
@@ -84,13 +84,15 @@
 				// レイが少し進むことを繰り返す．
 				// オブジェクト内に到達したら進行距離に応じて色決定
 				// 当たらなかったらそのまま（今回は透明）
-				for (int i = 0; i < 100; i++) {
+				const int StepNum = 20;
+				const float MarchingDist = 0.02;
+				for (int i = 0; i < StepNum; i++) {
 					if (isInObject(pos)) {
 						col.xyz = 1.0 - i * 0.01;
 						col.w = col.x;
 						break;
 					}
-					pos.xyz += 0.01 * forward.xyz;
+					pos.xyz += MarchingDist * forward.xyz;
 				}
 
 				return col;

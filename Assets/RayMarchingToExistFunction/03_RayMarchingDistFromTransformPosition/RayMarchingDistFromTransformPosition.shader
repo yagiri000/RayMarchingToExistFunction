@@ -52,7 +52,7 @@
 			float _TimeRate;
 			float _Freqency;
 
-			// その場所にオブジェクトが存在するか？（=オブジェクト内か？）を返す存在関数
+			// 座標がオブジェクト内か？を返し，形状を定義する形状関数
 			// 形状は無限に続く球状の層構造
 			bool isInObject(float3 pos) {
 				const float PI2 = 6.28318530718;
@@ -80,7 +80,9 @@
 				// レイが少し進むことを繰り返す．
 				// オブジェクト内に到達したら進行距離に応じて色決定
 				// 当たらなかったらそのまま（今回は透明）
-				for (int i = 0; i < 100; i++) {
+				const int StepNum = 30;
+				const float MarchingDist = 0.02;
+				for (int i = 0; i < StepNum; i++) {
 					// 存在関数をTransform.positionの分ずらす
 					// （Transfrom.positionを存在関数の原点に設定する）
 					if (isInObject(pos-transformPos)) {
@@ -88,7 +90,7 @@
 						col.w = col.x;
 						break;
 					}
-					pos.xyz += 0.01 * forward.xyz;
+					pos.xyz += MarchingDist * forward.xyz;
 				}
 
 				return col;
