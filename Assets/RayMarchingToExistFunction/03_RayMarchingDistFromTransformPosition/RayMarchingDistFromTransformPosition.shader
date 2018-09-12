@@ -83,8 +83,7 @@
 				const int StepNum = 30;
 				const float MarchingDist = 0.02;
 				for (int i = 0; i < StepNum; i++) {
-					// 存在関数をTransform.positionの分ずらす
-					// （Transfrom.positionを存在関数の原点に設定する）
+					// Transfrom.positionを形状関数に渡す座標の原点に設定する
 					if (isInObject(pos-transformPos)) {
 						col.xyz = 1.0 - i * 0.01;
 						col.w = col.x;

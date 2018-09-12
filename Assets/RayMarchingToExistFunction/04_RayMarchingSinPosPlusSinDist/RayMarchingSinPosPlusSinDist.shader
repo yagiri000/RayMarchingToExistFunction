@@ -57,7 +57,7 @@
 			// 座標がオブジェクト内か？を返し，形状を定義する形状関数
 			// 形状は名状しがたい
 			bool isInObject(float3 pos) {
-				pos.x += _Time * _TimeRate;
+				pos.x += _Time.y * _TimeRate;
 				pos.xyz *= _Scale;
 				float dist = sin(pos.x) * sin(pos.y) * sin(pos.z);
 				dist = pow(dist, 2);
